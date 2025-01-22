@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block title %}
+    All blogs
+{% endblock %}
+{% block content %}
+    <img src="{% static 'images/descarga.png' %}" alt="ImagenPrincipal" width="100px" height="100px">
+    <ul>
+        {% for post in posts %}
+            <li>{{ post.image_name }} <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+              <p>  {{ post.exceptText }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "blog/base.html" %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block content %}
+    <h1>{{ author }}</h1>
+    Tags:
+   {% for tag in tags %}
+    <p>{{ tag.caption }}</p>
+   {% endfor %}    
+   <button><a href="{% url 'blog:index' %}">Posts page</a></button>
+{% endblock %}
