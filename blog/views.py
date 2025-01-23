@@ -5,6 +5,7 @@ from django.http import Http404
 def index(request):
     posts = Post.objects.all().order_by("-date")[:3]
     return render(request,"blog/index.html",{"posts":posts})
+
 def details(request,slug):
     try:
         post = Post.objects.get(slug=slug)
@@ -20,4 +21,6 @@ def details(request,slug):
         'tags': post.tag.all(),
     })
 
-# def allPosts():
+def allPosts(request):
+    allPost = Post.objects.all().order_by("-date")
+    return render(request,"blog/allPosts.html",{"posts":allPost})
