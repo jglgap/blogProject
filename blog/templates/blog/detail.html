@@ -1,12 +1,21 @@
 {% extends "blog/base.html" %}
+{% load static %}
+
 {% block title %}
     {{ title }}
 {% endblock %}
 {% block content %}
-    <h1>{{ author }}</h1>
+    <h1>{{ title }}</h1>
+    <h2>Author: {{ author }}</h2>
+    <img src="{% static 'images/'|add:imageName %}" alt="imageName">
+    <p>{{ exceptText }}</p>
+    <p>{{ date }}</p>
+    <p>{{ content }}</p>
     Tags:
    {% for tag in tags %}
     <p>{{ tag.caption }}</p>
-   {% endfor %}    
-   <button><a href="{% url 'blog:index' %}">Posts page</a></button>
+    {% endfor %}    
+    <h3>To send an email to the author: </h3>
+    <a href="{{ author.email }}">{{ author.email }}</a>
+    <button><a href="{% url 'blog:index' %}">Posts page</a></button>
 {% endblock %}
