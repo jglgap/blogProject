@@ -7,7 +7,7 @@
 {% block content %}
     <h1>{{ title }}</h1>
     <h2>Author: {{ author }}</h2>
-    <img src="{% static 'images/'|add:imageName %}" alt="imageName">
+    <img src="{{ imageName }}" alt="imageName">
     <p>{{ exceptText }}</p>
     <p>{{ date }}</p>
     <p>{{ content }}</p>

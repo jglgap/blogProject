@@ -7,7 +7,7 @@
     <img src="{% static 'images/descarga.png' %}" alt="ImagenPrincipal" width="100px" height="100px">
     <ul>
         {% for post in posts %}
-            <li><img src="{% static 'images/'|add:post.image_name %}" alt=""> <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+            <li><img src="{{ post.image.url }}" alt=""> <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
                 <p>{{ post.date|date:"D d-M-Y" }}</p>
               <p>  {{ post.exceptText }}</p>
             </li>

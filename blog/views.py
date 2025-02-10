@@ -14,7 +14,7 @@ def details(request,slug):
     return render(request,"blog/detail.html",{
         "title": post.title,
         "exceptText":post.exceptText,
-        "imageName":post.image_name,
+        "imageName":post.image.url,
         "date":post.date,
         "content":post.content,
         'author':post.author,

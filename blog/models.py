@@ -21,7 +21,7 @@ class Tag(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100)
     exceptText = models.CharField(max_length=200)
-    image_name = models.CharField(max_length=200)
+    image = models.ImageField(upload_to="posts",null=True)
     date = models.DateField(auto_now=True)
     slug = models.SlugField(unique=True, db_index=True)
     content = models.TextField(validators=[MinLengthValidator(10)])
@@ -33,4 +33,4 @@ class Post(models.Model):
 
 
     def __str__(self):
-        return f'{self.title} {self.exceptText} {self.image_name} {self.date} {self.slug} {self.content} {self.author} {self.tag} '
+        return f'{self.title} {self.exceptText} {self.image} {self.date} {self.slug} {self.content} {self.author} {self.tag} '
