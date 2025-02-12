@@ -34,3 +34,5 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.title} {self.exceptText} {self.image} {self.date} {self.slug} {self.content} {self.author} {self.tag} '
+    
+    

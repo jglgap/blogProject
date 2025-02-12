@@ -4,7 +4,7 @@
     All blogs
 {% endblock %}
 {% block content %}
-    <img src="{% static 'images/descarga.png' % }" alt="ImagenPrincipal" width="100px" height="100px">
+    <img src="{% static 'images/descarga.png' %}" alt="ImagenPrincipal" width="100px" height="100px">
     <ul>
         {% for post in posts %}
             <li><img src="{{ post.image.url }}" alt=""> <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>

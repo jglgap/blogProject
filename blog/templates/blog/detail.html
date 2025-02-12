@@ -5,17 +5,29 @@
     {{ title }}
 {% endblock %}
 {% block content %}
-    <h1>{{ title }}</h1>
-    <h2>Author: {{ author }}</h2>
-    <img src="{{ imageName }}" alt="imageName">
-    <p>{{ exceptText }}</p>
-    <p>{{ date }}</p>
-    <p>{{ content }}</p>
+    <h1>{{ post.title }}</h1>
+    <h2>Author: {{ post.author }}</h2>
+    <img src="{{ post.image.url }}" alt="imageName">
+    <p>{{ post.exceptText }}</p>
+    <p>{{ post.date }}</p>
+    <p>{{ post.content }}</p>
     Tags:
-   {% for tag in tags %}
+   {% for tag in post.tags %}
     <p>{{ tag.caption }}</p>
     {% endfor %}    
     <h3>To send an email to the author: </h3>
-    <a href="{{ author.email }}">{{ author.email }}</a>
+    <section>
+        <ul>
+            {% for comment in comments %}
+                <li>
+                    <h2>{{ comment.user_name}}</h2>
+                    <p>{{ comment.text|linebreaks }}</p>
+
+                </li>
+            {% endfor %}
+
+        </ul>    
+    </section>
+    <a href="{{ post.author.email }}">{{ post.author.email }}</a>
     <button><a href="{% url 'blog:index' %}">Posts page</a></button>
 {% endblock %}
