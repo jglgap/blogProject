@@ -1,9 +1,11 @@
-from django.shortcuts import render
-from .models import Post, Author, Tag
+from django.shortcuts import render, get_object_or_404
+from .models import Post, Author, Tag, Comment
 from django.http import Http404
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from django.views import View
 from django.http import HttpResponseRedirect
+from .forms import CommentForm
+from django.urls import reverse
 
 # Create your views here.
 # def index(request):
@@ -56,25 +58,26 @@ class Details(View):
         context = {
             "post" : post,
             "post_tags" : post.tag.all(),
-            # "comment_form" : CommentForm()
-    #    comments = post.comments.all()
+            "comment_form" : CommentForm(),
+            "comments" : post.comments.all(),
         }
         return render(request,"blog/detail.html",context)
    
-   def post(self,request,slug):
-    #    comment_form : CommentForm(request.Post)
-        #post : Post.objects.get(slug=slug)
-    # if comment_form.is_valid():
-    #    comment = comment_form.save(commit=False)
-    #    comment.post = post
-    #    comment.save()
-    #    return HttpResponseRedirect(reverse("blogDetail",args=[slug]))
-      post = Post.objects.get(slug=slug)
-      context = {
-            "post" : post,
-            "post_tags" : post.tag.all(),
-            # "comment_form" : CommentForm()
-        #    comments = post.comments.all()
+   def post(self, request, slug):
+    comment_form = CommentForm(request.POST)  # Corrección de `request.Post` a `request.POST`
+    post = get_object_or_404(Post,slug=slug)  # `get_object_or_404` es mejor para manejar errores
 
-        }
-      return render(request,"blog/detail.html",context)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.post = post
+        comment.save()
+        return HttpResponseRedirect(reverse("blog:blogDetail", args=[slug]))
+
+    context = {
+        "post": post,
+        "post_tags": post.tag.all(),
+        "comment_form": CommentForm(),  # Si hay errores, se muestra un formulario vacío
+        "comments": post.comments.all()  # Se corrigió el error de sintaxis aquí
+    }
+
+    return render(request, "blog/detail.html", context)

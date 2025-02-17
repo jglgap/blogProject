@@ -35,4 +35,8 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title} {self.exceptText} {self.image} {self.date} {self.slug} {self.content} {self.author} {self.tag} '
     
-    
+class Comment(models.Model):
+    user_name = models.CharField(max_length=120)
+    text = models.TextField(max_length=400)
+    email = models.EmailField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")

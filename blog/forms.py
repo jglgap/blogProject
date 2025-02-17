@@ -1,4 +1,13 @@
 from django import forms
-from .models import Post
+from .models import   Comment
 
-# class Comments():
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["user_name","email","text"]
+        exclude = ["post"]
+        labels = {
+            "user_name": "username",
+            "email":"email",
+            "text":"comment",
+        }

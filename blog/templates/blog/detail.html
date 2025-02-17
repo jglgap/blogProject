@@ -1,33 +1,32 @@
-{% extends "blog/base.html" %}
-{% load static %}
+{% extends "blog/base.html" %} {% load static %} {% block title %} {{ title }}
+{% endblock %} {% block content %}
+<h1>{{ post.title }}</h1>
+<h2>Author: {{ post.author }}</h2>
+<img src="{{ post.image.url }}" alt="imageName" />
+<p>{{ post.exceptText }}</p>
+<p>{{ post.date }}</p>
+<p>{{ post.content }}</p>
+Tags: {% for tag in post.tags %}
+<p>{{ tag.caption }}</p>
+{% endfor %}
+<h3>To send an email to the author:</h3>
+<section>
+  <ul>
+    {% for comment in comments %}
+    <li>
+      <h2>{{ comment.user_name}}</h2>
+      <p>{{ comment.text|linebreaks }}</p>
+    </li>
+    {% endfor %}
+  </ul>
 
-{% block title %}
-    {{ title }}
-{% endblock %}
-{% block content %}
-    <h1>{{ post.title }}</h1>
-    <h2>Author: {{ post.author }}</h2>
-    <img src="{{ post.image.url }}" alt="imageName">
-    <p>{{ post.exceptText }}</p>
-    <p>{{ post.date }}</p>
-    <p>{{ post.content }}</p>
-    Tags:
-   {% for tag in post.tags %}
-    <p>{{ tag.caption }}</p>
-    {% endfor %}    
-    <h3>To send an email to the author: </h3>
-    <section>
-        <ul>
-            {% for comment in comments %}
-                <li>
-                    <h2>{{ comment.user_name}}</h2>
-                    <p>{{ comment.text|linebreaks }}</p>
-
-                </li>
-            {% endfor %}
-
-        </ul>    
-    </section>
-    <a href="{{ post.author.email }}">{{ post.author.email }}</a>
-    <button><a href="{% url 'blog:index' %}">Posts page</a></button>
+  <h3>Leave a comment:</h3>
+  <form method="POST">
+    {% csrf_token %} 
+    {{ comment_form.as_p }}
+    <button type="submit">Submit Comment</button>
+  </form>
+</section>
+<a href="{{ post.author.email }}">{{ post.author.email }}</a>
+<button><a href="{% url 'blog:index' %}">Posts page</a></button>
 {% endblock %}
